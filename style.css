@@ -1,0 +1,398 @@
+/* ── Material Design 3 Tokens ─────────────────────────────── */
+:root {
+  --md-primary:            #6750A4;
+  --md-on-primary:         #FFFFFF;
+  --md-primary-container:  #EADDFF;
+  --md-on-primary-container: #21005E;
+  --md-surface:            #FFFBFE;
+  --md-surface-variant:    #E7E0EC;
+  --md-on-surface:         #1C1B1F;
+  --md-on-surface-variant: #49454F;
+  --md-outline:            #79747E;
+  --md-outline-variant:    #CAC4D0;
+  --md-background:         #F3EFF4;
+
+  --priority-high:      #B3261E;
+  --priority-high-bg:   #FFDAD6;
+  --priority-medium:    #7D5700;
+  --priority-medium-bg: #FFDDB3;
+  --priority-low:       #386A20;
+  --priority-low-bg:    #C3EFAD;
+
+  --elev-1: 0 1px 2px rgba(0,0,0,.10), 0 1px 3px 1px rgba(0,0,0,.07);
+  --elev-2: 0 1px 2px rgba(0,0,0,.12), 0 2px 6px 2px rgba(0,0,0,.08);
+  --elev-3: 0 4px 8px 3px rgba(0,0,0,.10), 0 1px 3px rgba(0,0,0,.14);
+
+  --radius-m: 12px;
+  --radius-l: 16px;
+  --radius-full: 50px;
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--md-background);
+  color: var(--md-on-surface);
+  min-height: 100dvh;
+  line-height: 1.5;
+}
+
+/* ── App Bar ──────────────────────────────────────────────── */
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  height: 64px;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--elev-2);
+}
+
+.app-bar__icon { font-size: 28px; }
+.app-bar__title { font-size: 1.375rem; font-weight: 500; letter-spacing: .01em; }
+
+/* ── Container ────────────────────────────────────────────── */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  background: var(--md-surface);
+  border-radius: var(--radius-l);
+  box-shadow: var(--elev-1);
+}
+
+/* ── Input Card ───────────────────────────────────────────── */
+.input-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Floating label text field */
+.text-field {
+  position: relative;
+}
+
+.text-field input {
+  width: 100%;
+  padding: 22px 16px 8px;
+  background: var(--md-surface-variant);
+  border: none;
+  border-radius: 4px 4px 0 0;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--md-on-surface);
+  outline: none;
+}
+
+.text-field label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--md-on-surface-variant);
+  pointer-events: none;
+  transition: top .15s ease, font-size .15s ease, color .15s ease, transform .15s ease;
+}
+
+.text-field__line {
+  height: 1px;
+  background: var(--md-outline);
+  transition: height .15s, background .15s;
+}
+
+.text-field input:focus + label,
+.text-field input:not(:placeholder-shown) + label {
+  top: 12px;
+  transform: none;
+  font-size: .75rem;
+}
+
+.text-field input:focus + label { color: var(--md-primary); }
+
+.text-field input:focus ~ .text-field__line {
+  height: 2px;
+  background: var(--md-primary);
+}
+
+/* Input actions row */
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Priority select in input card */
+.priority-select-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-full);
+  font-size: .95rem;
+  font-family: inherit;
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  cursor: pointer;
+  outline: none;
+  transition: border-color .15s;
+}
+
+.priority-select-input:focus { border-color: var(--md-primary); }
+
+/* FAB */
+.fab {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: none;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--elev-2);
+  transition: box-shadow .2s, background .15s;
+}
+
+.fab:hover { background: color-mix(in srgb, var(--md-primary-container) 92%, var(--md-on-primary-container)); box-shadow: var(--elev-3); }
+.fab:active { box-shadow: var(--elev-1); }
+
+/* ── Filter Chips ─────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex-shrink: 0;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--md-outline-variant);
+  background: var(--md-surface);
+  color: var(--md-on-surface-variant);
+  font-size: .875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.chip.active, .chip:hover {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-color: transparent;
+}
+
+.chip--high.active   { background: var(--priority-high-bg);   color: var(--priority-high); }
+.chip--medium.active { background: var(--priority-medium-bg); color: var(--priority-medium); }
+.chip--low.active    { background: var(--priority-low-bg);    color: var(--priority-low); }
+
+/* ── Todo List ────────────────────────────────────────────── */
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Todo Item ────────────────────────────────────────────── */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--md-surface);
+  border-radius: var(--radius-m);
+  box-shadow: var(--elev-1);
+  border-left: 4px solid transparent;
+  transition: box-shadow .2s, transform .15s, opacity .2s, border-left-color .15s;
+  cursor: default;
+}
+
+.todo-item:hover { box-shadow: var(--elev-2); }
+
+.todo-item.priority-high   { border-left-color: var(--priority-high); }
+.todo-item.priority-medium { border-left-color: var(--priority-medium); }
+.todo-item.priority-low    { border-left-color: var(--priority-low); }
+
+.todo-item.done { opacity: .6; }
+.todo-item.done .todo-text { text-decoration: line-through; color: var(--md-on-surface-variant); }
+
+/* Drag states */
+.todo-item.dragging {
+  opacity: .35;
+  transform: scale(.97);
+  box-shadow: none;
+}
+
+.todo-item.drag-over {
+  box-shadow: var(--elev-3);
+  transform: translateY(-3px);
+  border-top: 2px solid var(--md-primary);
+}
+
+/* Drag handle */
+.drag-handle {
+  color: var(--md-outline);
+  cursor: grab;
+  font-size: 20px;
+  flex-shrink: 0;
+  user-select: none;
+  touch-action: none;
+}
+.drag-handle:active { cursor: grabbing; }
+
+/* Checkbox */
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--md-primary);
+}
+
+/* Todo text */
+.todo-text {
+  flex: 1;
+  font-size: .95rem;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Priority select in item */
+.item-priority-select {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--md-outline-variant);
+  font-size: .78rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  background: var(--md-surface);
+  color: var(--md-on-surface-variant);
+  transition: border-color .15s;
+  max-width: 90px;
+}
+
+.item-priority-select:focus { border-color: var(--md-primary); }
+
+.item-priority-select.sel-high   { background: var(--priority-high-bg);   color: var(--priority-high);   border-color: var(--priority-high); }
+.item-priority-select.sel-medium { background: var(--priority-medium-bg); color: var(--priority-medium); border-color: var(--priority-medium); }
+.item-priority-select.sel-low    { background: var(--priority-low-bg);    color: var(--priority-low);    border-color: var(--priority-low); }
+
+/* Icon delete button */
+.icon-btn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--md-outline);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .15s, color .15s;
+}
+
+.icon-btn .material-icons-round { font-size: 20px; }
+.icon-btn:hover { background: #FFDAD6; color: var(--priority-high); }
+
+/* ── Empty State ──────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--md-on-surface-variant);
+}
+
+.empty-state .material-icons-round { font-size: 56px; opacity: .4; }
+.empty-state p { margin-top: 12px; font-size: 1rem; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 0;
+  border-top: 1px solid var(--md-outline-variant);
+}
+
+.remain-count {
+  font-size: .875rem;
+  color: var(--md-on-surface-variant);
+}
+
+.text-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  font-size: .875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.text-btn .material-icons-round { font-size: 18px; }
+.text-btn:hover { background: #FFDAD6; color: var(--priority-high); }
+
+/* ── Loading State ───────────────────────────────────────── */
+.loading-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--md-on-surface-variant);
+}
+
+.loading-state p { margin-top: 16px; font-size: 1rem; }
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--md-outline-variant);
+  border-top-color: var(--md-primary);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .app-bar { height: 56px; padding: 0 16px; }
+  .app-bar__title { font-size: 1.2rem; }
+  .container { padding: 12px 12px 32px; gap: 12px; }
+  .input-card { padding: 16px; }
+
+  .todo-item { padding: 10px 10px; gap: 6px; }
+  .item-priority-select { max-width: 76px; font-size: .72rem; }
+  .todo-text { font-size: .9rem; }
+}
+
+@media (min-width: 681px) {
+  .container { padding: 28px 20px 48px; }
+}

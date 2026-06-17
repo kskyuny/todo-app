@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-bar">
+    <span class="material-icons-round app-bar__icon">task_alt</span>
+    <h1 class="app-bar__title">My Todo</h1>
+  </header>
+
+  <main class="container">
+
+    <div class="card input-card">
+      <div class="text-field">
+        <input type="text" id="todoInput" placeholder=" " autocomplete="off">
+        <label for="todoInput">할 일을 입력하세요</label>
+        <div class="text-field__line"></div>
+      </div>
+      <div class="input-actions">
+        <select id="prioritySelect" class="priority-select-input">
+          <option value="high">🔴 높음</option>
+          <option value="medium" selected>🟡 중간</option>
+          <option value="low">🟢 낮음</option>
+        </select>
+        <button class="fab" id="addBtn" title="추가">
+          <span class="material-icons-round">add</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-bar" role="group" aria-label="필터">
+      <button class="chip active" data-filter="all">전체</button>
+      <button class="chip chip--high"   data-filter="high">높음</button>
+      <button class="chip chip--medium" data-filter="medium">중간</button>
+      <button class="chip chip--low"    data-filter="low">낮음</button>
+      <button class="chip"              data-filter="done">완료</button>
+    </div>
+
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>불러오는 중...</p>
+    </div>
+
+    <ul id="todoList" class="todo-list" aria-label="할 일 목록"></ul>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <span class="material-icons-round">inbox</span>
+      <p>할 일이 없습니다</p>
+    </div>
+
+    <div class="footer-bar">
+      <span id="remainCount" class="remain-count">0개 남음</span>
+      <button class="text-btn" id="clearDoneBtn">
+        <span class="material-icons-round">delete_sweep</span>
+        완료 삭제
+      </button>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
