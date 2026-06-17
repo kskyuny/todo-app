@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 — My Todo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-bar">
+    <span class="material-icons-round app-bar__icon">task_alt</span>
+    <h1 class="app-bar__title">My Todo</h1>
+  </header>
+
+  <main class="auth-container">
+    <div class="card auth-card">
+      <h2 class="auth-title">로그인</h2>
+      <form class="auth-form" id="loginForm" novalidate>
+        <div class="text-field">
+          <input type="email" id="email" placeholder=" " autocomplete="email" required>
+          <label for="email">이메일</label>
+          <div class="text-field__line"></div>
+        </div>
+        <div class="text-field">
+          <input type="password" id="password" placeholder=" " autocomplete="current-password" required>
+          <label for="password">비밀번호</label>
+          <div class="text-field__line"></div>
+        </div>
+        <p class="error-msg" id="errorMsg" hidden></p>
+        <button type="submit" class="auth-btn" id="submitBtn">로그인</button>
+      </form>
+      <p class="auth-link">계정이 없으신가요? <a href="signup.html">회원가입</a></p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script>
+    getSession().then(session => {
+      if (session) location.href = 'index.html';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg  = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitBtn');
+
+      errorMsg.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '로그인 중...';
+
+      const { error } = await signIn(email, password);
+
+      if (error) {
+        errorMsg.textContent = '이메일 또는 비밀번호가 올바르지 않습니다.';
+        errorMsg.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = '로그인';
+      } else {
+        location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

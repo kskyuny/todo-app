@@ -1,10 +1,6 @@
-// ── Supabase 클라이언트 ───────────────────────────────────────
-const SUPABASE_URL = 'https://ppzljvtnukptmeozvudv.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwemxqdnRudWtwdG1lb3p2dWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NzU5MTUsImV4cCI6MjA5NzI1MTkxNX0.ctU5jdDow0RcyqGDzpBpCvvAe0a4_l9jQCdZQSdRFrE';
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 // ── 상태 ─────────────────────────────────────────────────────
 let todos = [];
+let currentUser = null;
 let currentFilter = 'all';
 let dragSrcId = null;
 
@@ -49,7 +45,7 @@ async function dbInsert(text, priority) {
   const minOrder = todos.length === 0 ? 0 : Math.min(...todos.map(t => t.sort_order)) - 1;
   const { data, error } = await db
     .from('todos')
-    .insert({ text, done: false, priority, sort_order: minOrder })
+    .insert({ text, done: false, priority, sort_order: minOrder, user_id: currentUser.id })
     .select()
     .single();
 
@@ -251,5 +247,14 @@ clearDoneBtn.addEventListener('click', async () => {
   await dbDeleteMany(doneIds);
 });
 
-// ── 초기 로드 ─────────────────────────────────────────────────
-loadTodos();
+// ── 초기화 ───────────────────────────────────────────────────
+(async () => {
+  const session = await requireAuth();
+  if (!session) return;
+
+  currentUser = session.user;
+  document.getElementById('userEmail').textContent = currentUser.email;
+  document.getElementById('signOutBtn').addEventListener('click', signOut);
+
+  loadTodos();
+})();
