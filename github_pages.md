@@ -25,7 +25,7 @@ https://kskyuny.github.io/todo-app/
 
 ```bash
 cd ~/work/todo
-git remote add origin https://github.com/kskyuny/todo-app.git
+git remote add origin git@github.com:kskyuny/todo-app.git
 git push -u origin main
 ```
 
