@@ -486,3 +486,61 @@ body {
 }
 
 .auth-link a:hover { text-decoration: underline; }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 16px;
+  color: var(--md-on-surface-variant);
+  font-size: .8rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--md-outline-variant);
+}
+
+.social-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px;
+  border-radius: var(--radius-full);
+  font-size: .95rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity .15s, box-shadow .15s;
+}
+
+.social-btn--google {
+  border: 1px solid var(--md-outline-variant);
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+}
+
+.social-btn--google:hover {
+  box-shadow: var(--elev-1);
+  opacity: .9;
+}
+
+.social-btn--github {
+  border: none;
+  background: #24292e;
+  color: #fff;
+}
+
+.social-btn--github:hover { opacity: .85; }

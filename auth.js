@@ -28,3 +28,19 @@ async function signOut() {
   await db.auth.signOut();
   location.href = 'login.html';
 }
+
+const OAUTH_REDIRECT = 'https://kskyuny.github.io/todo-app/';
+
+async function signInWithGoogle() {
+  return await db.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: OAUTH_REDIRECT },
+  });
+}
+
+async function signInWithGitHub() {
+  return await db.auth.signInWithOAuth({
+    provider: 'github',
+    options: { redirectTo: OAUTH_REDIRECT },
+  });
+}
